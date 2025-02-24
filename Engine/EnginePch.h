@@ -43,4 +43,12 @@ using Vec3 = XMFLOAT3;
 using Vec4 = XMFLOAT4;
 using Matrix = XMMATRIX;
 
-void HelloEngine();		// Client 프로젝트와 연결됐는지 확인하는 용도
+struct WindowInfo
+{
+	HWND hwnd;	// 출력 윈도우
+	int32 width;	// 너비
+	int32 height;	// 높이
+	bool windowed;	// 창 모드 or 전체 화면
+};
+
+extern unique_ptr<class Engine> GEngine;	// Engine을 어디서든 쓸 수 있도록 하는 전역 변수
