@@ -36,8 +36,8 @@ public:
 
 private:
 	ComPtr<IDXGISwapChain>	_swapChain;
-	ComPtr<ID3D12Resource>	_renderTargets[SWAP_CHAIN_BUFFER_COUNT];
-	uint32					_backBufferIndex = 0;
+	ComPtr<ID3D12Resource>	_renderTargets[SWAP_CHAIN_BUFFER_COUNT];	// 특수 종이
+	uint32					_backBufferIndex = 0;	// 현재 BackBuffer 추적
 };
 
 

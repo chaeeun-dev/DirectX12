@@ -22,11 +22,11 @@ void DescriptorHeap::Init(ComPtr<ID3D12Device> device, shared_ptr<SwapChain> swa
 
 	// 같은 종류의 데이터끼리 배열로 관리
 	// RTV 목록 : [ ] [ ]
-	device->CreateDescriptorHeap(&rtvDesc, IID_PPV_ARGS(&_rtvHeap));
+	device->CreateDescriptorHeap(&rtvDesc, IID_PPV_ARGS(&_rtvHeap));	
 
-	D3D12_CPU_DESCRIPTOR_HANDLE rtvHeapBegin = _rtvHeap->GetCPUDescriptorHandleForHeapStart();
+	D3D12_CPU_DESCRIPTOR_HANDLE rtvHeapBegin = _rtvHeap->GetCPUDescriptorHandleForHeapStart();	// 시작 주소
 
-	for (int i = 0; i < SWAP_CHAIN_BUFFER_COUNT; i++)
+	for (int i = 0; i < SWAP_CHAIN_BUFFER_COUNT; i++)	// RTV 목록에 정보를 채움
 	{
 		_rtvHandle[i] = CD3DX12_CPU_DESCRIPTOR_HANDLE(rtvHeapBegin, i * _rtvHeapSize);
 		device->CreateRenderTargetView(swapChain->GetRenderTarget(i).Get(), nullptr, _rtvHandle[i]);
