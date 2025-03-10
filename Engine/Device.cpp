@@ -2,7 +2,6 @@
 #include "Device.h"
 #include "CommandQueue.h"
 #include "SwapChain.h"
-#include "DescriptorHeap.h"
 
 void Device::Init()
 {
