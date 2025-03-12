@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "Device.h"
-#include "CommandQueue.h"
-#include "SwapChain.h"
 
 void Device::Init()
 {
