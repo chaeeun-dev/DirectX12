@@ -5,6 +5,7 @@
 #include "Input.h"
 #include "Timer.h"
 #include "SceneManager.h"
+#include "Light.h"
 
 void Engine::Init(const WindowInfo& info)
 {
@@ -21,8 +22,9 @@ void Engine::Init(const WindowInfo& info)
 	_tableDescHeap->Init(256);
 	_depthStencilBuffer->Init(_window);
 
-	CreateConstantBuffer(CBV_REGISTER::b0, sizeof(TransformParams), 256);
-	CreateConstantBuffer(CBV_REGISTER::b1, sizeof(MaterialParams), 256);
+	CreateConstantBuffer(CBV_REGISTER::b0, sizeof(LightParams), 1);
+	CreateConstantBuffer(CBV_REGISTER::b1, sizeof(TransformParams), 256);
+	CreateConstantBuffer(CBV_REGISTER::b2, sizeof(MaterialParams), 256);
 
 	ResizeWindow(info.width, info.height);
 
@@ -66,7 +68,7 @@ void Engine::ResizeWindow(int32 width, int32 height)
 	_window.height = height;
 
 	RECT rect = { 0, 0, width, height };
-	::AdjustWindowRect(&rect, WS_EX_OVERLAPPEDWINDOW, false);
+	::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 	::SetWindowPos(_window.hwnd, 0, 100, 100, width, height, 0);
 
 	_depthStencilBuffer->Init(_window);

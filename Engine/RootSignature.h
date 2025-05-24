@@ -1,7 +1,5 @@
 #pragma once
 
-// [계약서 / 결재]
-
 class RootSignature
 {
 public:

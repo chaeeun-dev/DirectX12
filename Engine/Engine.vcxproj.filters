@@ -114,6 +114,9 @@
     <ClInclude Include="MeshRenderer.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -200,11 +203,11 @@
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\Shader\default.hlsli">
-      <Filter>Shader</Filter>
-    </None>
     <None Include="SimpleMath.inl">
       <Filter>Utils</Filter>
     </None>

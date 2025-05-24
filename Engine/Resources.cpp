@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Resources.h"
 
+
 shared_ptr<Mesh> Resources::LoadCubeMesh()
 {
 	shared_ptr<Mesh> findMesh = Get<Mesh>(L"Cube");
