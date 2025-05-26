@@ -3,13 +3,35 @@
 
 // [일감 기술서] 외주 인력들이 뭘 해야 할지 기술
 
+enum class RASTERIZER_TYPE
+{
+	CULL_NONE,	// 모두 연산
+	CULL_FRONT,	// 시계 방향 컬링
+	CULL_BACK,	// 반시계방향 컬링(일반적)
+	WIREFRAME,
+};
+
+enum class DEPTH_STENCIL_TYPE
+{
+	LESS,
+	LESS_EQUAL,
+	GREATER,
+	GREATER_EQUAL,
+};
+
+struct ShaderInfo
+{
+	RASTERIZER_TYPE rasterizerType = RASTERIZER_TYPE::CULL_BACK;
+	DEPTH_STENCIL_TYPE depthStencilType = DEPTH_STENCIL_TYPE::LESS;
+};
+
 class Shader : public Object
 {
 public:
 	Shader();
 	virtual ~Shader();
 
-	void Init(const wstring& path);
+	void Init(const wstring& path, ShaderInfo info = ShaderInfo());
 	void Update();
 
 private:
