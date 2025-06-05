@@ -5,16 +5,18 @@
 
 Mesh::Mesh() : Object(OBJECT_TYPE::MESH)
 {
+
 }
 
 Mesh::~Mesh()
 {
+
 }
 
-void Mesh::Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexbuffer)
+void Mesh::Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexBuffer)
 {
 	CreateVertexBuffer(vertexBuffer);
-	CreateIndexBuffer(indexbuffer);
+	CreateIndexBuffer(indexBuffer);
 }
 
 void Mesh::Render()

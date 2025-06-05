@@ -2,6 +2,7 @@
 
 class GameObject;
 
+
 class Scene
 {
 public:
@@ -12,7 +13,6 @@ public:
 	void FinalUpdate();
 
 	void Render();
-
 private:
 	void PushLightData();
 

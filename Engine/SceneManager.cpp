@@ -70,15 +70,17 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	shared_ptr<Scene> scene = make_shared<Scene>();
 
 #pragma region Camera
-	shared_ptr<GameObject> camera = make_shared<GameObject>();
-	camera->SetName(L"Main_Camera");
-	camera->AddComponent(make_shared<Transform>());
-	camera->AddComponent(make_shared<Camera>()); // Near=1, Far=1000, FOV=45µµ
-	camera->AddComponent(make_shared<TestCameraScript>());
-	camera->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, 0.f));
-	uint8 layerIndex = GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI");
-	camera->GetCamera()->SetCullingMaskLayerOnOff(layerIndex, true); // UI´Â ¾È ÂïÀ½
-	scene->AddGameObject(camera);
+	{
+		shared_ptr<GameObject> camera = make_shared<GameObject>();
+		camera->SetName(L"Main_Camera");
+		camera->AddComponent(make_shared<Transform>());
+		camera->AddComponent(make_shared<Camera>()); // Near=1, Far=1000, FOV=45µµ
+		camera->AddComponent(make_shared<TestCameraScript>());
+		camera->GetTransform()->SetLocalPosition(Vec3(0.f, 0.f, 0.f));
+		uint8 layerIndex = GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI");
+		camera->GetCamera()->SetCullingMaskLayerOnOff(layerIndex, true); // UI´Â ¾È ÂïÀ½
+		scene->AddGameObject(camera);
+	}
 #pragma endregion
 
 #pragma region UI_Camera
@@ -100,7 +102,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 	{
 		shared_ptr<GameObject> skybox = make_shared<GameObject>();
 		skybox->AddComponent(make_shared<Transform>());
-		skybox->SetCheckFrustum(false);		// ½ºÅµµÇ¸é ¾È µÊ
+		skybox->SetCheckFrustum(false);
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{
 			shared_ptr<Mesh> sphereMesh = GET_SINGLE(Resources)->LoadSphereMesh();
@@ -131,7 +133,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 			meshRenderer->SetMesh(sphereMesh);
 		}
 		{
-			shared_ptr<Shader> shader = GET_SINGLE(Resources)->Get<Shader>(L"Forward");
+			shared_ptr<Shader> shader = GET_SINGLE(Resources)->Get<Shader>(L"Deferred");
 			shared_ptr<Texture> texture = GET_SINGLE(Resources)->Load<Texture>(L"Wood", L"..\\Resources\\Texture\\Wood.jpg");
 			shared_ptr<Texture> texture2 = GET_SINGLE(Resources)->Load<Texture>(L"Wood_Normal", L"..\\Resources\\Texture\\Wood_Normal.jpg");
 			shared_ptr<Material> material = make_shared<Material>();
@@ -146,12 +148,13 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 #pragma endregion
 
 #pragma region UI_Test
+	for (int32 i = 0; i < 3; i++)
 	{
 		shared_ptr<GameObject> sphere = make_shared<GameObject>();
 		sphere->SetLayerIndex(GET_SINGLE(SceneManager)->LayerNameToIndex(L"UI")); // UI
 		sphere->AddComponent(make_shared<Transform>());
 		sphere->GetTransform()->SetLocalScale(Vec3(100.f, 100.f, 100.f));
-		sphere->GetTransform()->SetLocalPosition(Vec3(0, 0, 500.f));	// ±íÀÌ °ª 1~1000 »çÀÌ ¾Æ¹« °ª
+		sphere->GetTransform()->SetLocalPosition(Vec3(-350.f + (i * 160), 250.f, 500.f));
 		shared_ptr<MeshRenderer> meshRenderer = make_shared<MeshRenderer>();
 		{
 			shared_ptr<Mesh> mesh = GET_SINGLE(Resources)->LoadRectangleMesh();
@@ -159,7 +162,7 @@ shared_ptr<Scene> SceneManager::LoadTestScene()
 		}
 		{
 			shared_ptr<Shader> shader = GET_SINGLE(Resources)->Get<Shader>(L"Forward");
-			shared_ptr<Texture> texture = GET_SINGLE(Resources)->Load<Texture>(L"Wood", L"..\\Resources\\Texture\\Wood.jpg");
+			shared_ptr<Texture> texture = GEngine->GetRTGroup(RENDER_TARGET_GROUP_TYPE::G_BUFFER)->GetRTTexture(i);
 			shared_ptr<Material> material = make_shared<Material>();
 			material->SetShader(shader);
 			material->SetTexture(0, texture);
