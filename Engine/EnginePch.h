@@ -14,7 +14,7 @@
 #include <map>
 using namespace std;
 
-#include "filesystem"
+#include <filesystem>
 namespace fs = std::filesystem;
 
 #include "d3dx12.h"
@@ -64,7 +64,7 @@ enum class CBV_REGISTER : uint8
 	b0,
 	b1,
 	b2,
-	b3, 
+	b3,
 	b4,
 
 	END
@@ -77,8 +77,24 @@ enum class SRV_REGISTER : uint8
 	t2,
 	t3,
 	t4,
+	t5,
+	t6,
+	t7,
+	t8,
+	t9,
 
 	END
+};
+
+enum class UAV_REGISTER : uint8
+{
+	u0 = static_cast<uint8>(SRV_REGISTER::END),
+	u1,
+	u2,
+	u3,
+	u4,
+
+	END,
 };
 
 enum
@@ -86,15 +102,17 @@ enum
 	SWAP_CHAIN_BUFFER_COUNT = 2,
 	CBV_REGISTER_COUNT = CBV_REGISTER::END,
 	SRV_REGISTER_COUNT = static_cast<uint8>(SRV_REGISTER::END) - CBV_REGISTER_COUNT,
-	REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT,
+	CBV_SRV_REGISTER_COUNT = CBV_REGISTER_COUNT + SRV_REGISTER_COUNT,
+	UAV_REGISTER_COUNT = static_cast<uint8>(UAV_REGISTER::END) - CBV_SRV_REGISTER_COUNT,
+	TOTAL_REGISTER_COUNT = CBV_SRV_REGISTER_COUNT + UAV_REGISTER_COUNT
 };
 
 struct WindowInfo
 {
-	HWND hwnd;	// 출력 윈도우
-	int32 width;	// 너비
-	int32 height;	// 높이
-	bool windowed;	// 창 모드 or 전체 화면
+	HWND	hwnd; // 출력 윈도우
+	int32	width; // 너비
+	int32	height; // 높이
+	bool	windowed; // 창모드 or 전체화면
 };
 
 struct Vertex
@@ -125,16 +143,18 @@ public:								\
 
 #define GET_SINGLE(type)	type::GetInstance()
 
-#define DEVICE GEngine->GetDevice()->GetDevice()
-#define CMD_LIST GEngine->GetCmdQueue()->GetCmdList()
-#define RESOURCE_CMD_LIST GEngine->GetCmdQueue()->GetResourceCmdList()
-#define ROOT_SIGNATURE	GEngine->GetRootSignature()->GetSignature()
+#define DEVICE				GEngine->GetDevice()->GetDevice()
+#define GRAPHICS_CMD_LIST	GEngine->GetGraphicsCmdQueue()->GetGraphicsCmdList()
+#define RESOURCE_CMD_LIST	GEngine->GetGraphicsCmdQueue()->GetResourceCmdList()
+#define COMPUTE_CMD_LIST	GEngine->GetComputeCmdQueue()->GetComputeCmdList()
 
-#define INPUT		GET_SINGLE(Input)
-#define DELTA_TIME		GET_SINGLE(Timer)->GetDeltaTime()
+#define GRAPHICS_ROOT_SIGNATURE		GEngine->GetRootSignature()->GetGraphicsRootSignature()
+#define COMPUTE_ROOT_SIGNATURE		GEngine->GetRootSignature()->GetComputeRootSignature()
 
-#define CONST_BUFFER(type) GEngine->GetConstantBuffer(type)
+#define INPUT				GET_SINGLE(Input)
+#define DELTA_TIME			GET_SINGLE(Timer)->GetDeltaTime()
 
+#define CONST_BUFFER(type)	GEngine->GetConstantBuffer(type)
 
 struct TransformParams
 {
