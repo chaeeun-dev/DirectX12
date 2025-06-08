@@ -11,7 +11,7 @@ public:
 	virtual ~Mesh();
 
 	void Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexbuffer);
-	void Render();
+	void Render(uint32 instanceCount = 1);
 
 private:
 	void CreateVertexBuffer(const vector<Vertex>& buffer);
@@ -26,4 +26,3 @@ private:
 	D3D12_INDEX_BUFFER_VIEW		_indexBufferView;
 	uint32 _indexCount = 0;
 };
-
