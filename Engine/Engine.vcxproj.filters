@@ -130,6 +130,9 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="InstancingManager.h" />
+    <ClInclude Include="Terrain.h">
+      <Filter>Object\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -232,6 +235,9 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="InstancingManager.cpp" />
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Object\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -267,6 +273,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Resources\Shader\tessellation.fx">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Resources\Shader\terrain.fx">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
