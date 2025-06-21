@@ -107,9 +107,9 @@ private:
 	// Animation
 	void LoadBones(FbxNode* node) { LoadBones(node, 0, -1); }
 	void LoadBones(FbxNode* node, int32 idx, int32 parentIdx);
-	void LoadAnimationInfo();
+	void LoadAnimationInfo();	
 
-	void LoadAnimationData(FbxMesh* mesh, FbxMeshInfo* meshInfo);
+	void LoadAnimationData(FbxMesh* mesh, FbxMeshInfo* meshInfo);	
 	void LoadBoneWeight(FbxCluster* cluster, int32 boneIdx, FbxMeshInfo* meshInfo);
 	void LoadOffsetMatrix(FbxCluster* cluster, const FbxAMatrix& matNodeTransform, int32 boneIdx, FbxMeshInfo* meshInfo);
 	void LoadKeyframe(int32 animIndex, FbxNode* node, FbxCluster* cluster, const FbxAMatrix& matNodeTransform, int32 boneIdx, FbxMeshInfo* container);

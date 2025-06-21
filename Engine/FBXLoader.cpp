@@ -24,8 +24,8 @@ void FBXLoader::LoadFbx(const wstring& path)
 	Import(path);
 
 	// Animation	
-	//LoadBones(_scene->GetRootNode());
-	//LoadAnimationInfo();
+	LoadBones(_scene->GetRootNode());
+	LoadAnimationInfo();
 
 	// 로드된 데이터 파싱 (Mesh/Material/Skin)
 	ParseNode(_scene->GetRootNode());
@@ -529,7 +529,7 @@ void FBXLoader::LoadKeyframe(int32 animIndex, FbxNode* node, FbxCluster* cluster
 	FbxLongLong startFrame = _animClips[animIndex]->startTime.GetFrameCount(timeMode);
 	FbxLongLong endFrame = _animClips[animIndex]->endTime.GetFrameCount(timeMode);
 
-	for (FbxLongLong frame = startFrame; frame < endFrame; frame++)
+	for (FbxLongLong frame = startFrame; frame < endFrame; frame++)		// 느림. 엔진을 구현할 땐 다른 코드로..
 	{
 		FbxKeyFrameInfo keyFrameInfo = {};
 		FbxTime fbxTime = 0;
